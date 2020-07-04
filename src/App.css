@@ -36,3 +36,103 @@
     transform: rotate(360deg);
   }
 }
+
+html, body, #app, #app>div {   
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+:root {
+  --main-color: #f9a73e;
+  --outline-color: #264b96;
+  --stop-cooking-color: #264b96;
+  --start-cooking-color: #264b96;
+  --window-not-cooking-color: #282828;
+}
+
+.flex--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.microwave--container {
+  border-radius: 3%;
+  border-color: #264b96;
+  border-width: 5px;
+  border-style: solid;
+  width: 1450px;
+  height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  background-color:var(--main-color);
+  background-image: radial-gradient(black 1px, transparent 0);
+  background-size: 10px 10px;
+  background-position: -19px -19px;
+}
+
+.microwave--panel {
+  border-radius: 3%;
+  border-color: var(--outline-color);
+  border-width: 5px;
+  border-style: solid;
+  width: 350px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--outline-color);
+}
+
+.microwave--window {
+  background-color: var(--window-not-cooking-color);
+  border-radius: 3%;
+  border-color: var(--outline-color);
+  border-width: 5px;
+  border-style: solid;
+  width: 900px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.microwave--window-lever {
+  border-radius: 3%;
+  border-color: var(--outline-color);
+  border-width: 5px;
+  border-style: solid;
+  background-color: var(--outline-color);
+  width: 20px;
+  height: 550px;
+  margin-right: 50px;
+  z-index: 1;
+}
+
+.microwave--panel-buttons{
+  padding-bottom: 50px;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.microwave--panel-button {
+  height: 130px;
+  width: 130px;
+}
+
+.mircowave--panel-button_100 {
+  height: 100%;
+  background-color: var(--outline-color);
+  font-size: 1.5rem !important;
+}

@@ -1,0 +1,19 @@
+.circular {
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 220px;
+  height: 220px;
+  position: relative;
+}
+
+.circular--inner-button{
+  outline: 0 !important;
+  position: absolute;
+  left:2%;
+  top: 2%;
+  font-size: 4rem;
+  border-radius: 50%;
+  height: 190px;
+  width: 190px;
+  z-index: 0;
+}
