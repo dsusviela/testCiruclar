@@ -201,6 +201,7 @@ function App() {
     setTimeValue("00:00");
     setCircularValue(calculateActualCircularValue("00:00"));
     setProgramSelected(false);
+    setLoops(0);
   };
 
   const setActiveProgram = ({ time, power, _name }) => {
@@ -208,6 +209,7 @@ function App() {
     setTimeValue(time);
     setCircularValue(calculateActualCircularValue(time));
     setProgramSelected(true);
+    setLoops(0);
   };
 
   const programButons = () => {
