@@ -8,6 +8,7 @@
 
 .circular--inner-button{
   outline: 0 !important;
+  color: white;
   position: absolute;
   left:2%;
   top: 2%;

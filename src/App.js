@@ -1,42 +1,45 @@
-import React, { useState, useRef } from "react";
-import { Button } from "reactstrap";
-import styles from "./App.css";
-import ExceptionWrapper from "./ExceptionsWrapper";
-import CircularComponent from "./components/CircularComponent";
+import React, { useState, useRef } from 'react';
+import { Button } from 'reactstrap';
+import styles from './App.css';
+import ExceptionWrapper from './ExceptionsWrapper';
+import CircularComponent from './components/CircularComponent';
 
 function App() {
-  const [circularValue, setCircularValue] = useState(0);
-  const [circularPower, setCircularPower] = useState(1);
-  const [oldCircularValue, setOldCircularValue] = useState(0);
-  const [timeValue, setTimeValue] = useState("00:00");
-  const [loops, setLoops] = useState(0);
-  const [screen, setScreen] = useState("home");
-  const [isWorking, setIsWorking] = useState(false);
+  const [ circularValue, setCircularValue ] = useState(0);
+  const [ circularPower, setCircularPower ] = useState(1);
+  const [ oldCircularValue, setOldCircularValue ] = useState(0);
+  const [ timeValue, setTimeValue ] = useState('00:00');
+  const [ loops, setLoops ] = useState(0);
+  const [ screen, setScreen ] = useState('home');
+  const [ isWorking, setIsWorking ] = useState(false);
 
   const references = useRef({ isTimerOn: false });
 
-  const green = "#27b376";
-  const red = "#bf212f";
+  const green = '#499c96';
+  const secondaryGreen = '#bbdfdc';
+  const red = '#d66c51';
+
+  const powerColors = [ '#9bccc8', '#8bc2be', '#7bb9b4', '#6aafaa', '#5aa6a0', '#499c96' ];
 
   const normalize = (time) => {
-    return (time < 10 ? "0" : "") + time;
+    return (time < 10 ? '0' : '') + time;
   };
 
-  const baseTimes = [...Array(180).keys()].map((auxValue) => {
+  const baseTimes = [ ...Array(180).keys() ].map((auxValue) => {
     const seconds = auxValue % 60;
     const minutes = Math.floor(auxValue / 60);
-    return normalize(minutes) + ":" + normalize(seconds);
+    return normalize(minutes) + ':' + normalize(seconds);
   });
 
   const calculateActualTime = (time) => {
-    const minutes = parseInt(time.split(":")[0]) + 3 * loops;
-    const seconds = time.split(":")[1];
-    return normalize(minutes) + ":" + seconds;
+    const minutes = parseInt(time.split(':')[0]) + 3 * loops;
+    const seconds = time.split(':')[1];
+    return normalize(minutes) + ':' + seconds;
   };
 
   const calculateActualCircularValue = (timeString) => {
-    const minutes = parseInt(timeString.split(":")[0]);
-    const seconds = parseInt(timeString.split(":")[1]);
+    const minutes = parseInt(timeString.split(':')[0]);
+    const seconds = parseInt(timeString.split(':')[1]);
 
     return ((minutes % 3) * 60 + seconds) / 180;
   };
@@ -76,7 +79,7 @@ function App() {
     } else {
       seconds = seconds - 1;
     }
-    const timeString = normalize(minutes) + ":" + normalize(seconds);
+    const timeString = normalize(minutes) + ':' + normalize(seconds);
     const circularValue = calculateActualCircularValue(timeString);
     setTimeValue(timeString);
     setCircularValue(circularValue);
@@ -88,8 +91,8 @@ function App() {
   const startTimer = () => {
     references.current.isTimerOn = !references.current.isTimerOn;
     setTimeout(() => {
-      const minutes = parseInt(timeValue.split(":")[0]);
-      const seconds = parseInt(timeValue.split(":")[1]);
+      const minutes = parseInt(timeValue.split(':')[0]);
+      const seconds = parseInt(timeValue.split(':')[1]);
       countDown(minutes, seconds);
     }, 1000);
     setIsWorking(!isWorking);
@@ -101,7 +104,7 @@ function App() {
         <CircularComponent
           circularValue={circularValue}
           onValueChange={onValueChange}
-          innerValue={calculateActualTime(timeValue || "00:00")}
+          innerValue={calculateActualTime(timeValue || '00:00')}
           innerFunction={() => startTimer()}
           innerColor={isWorking ? red : green}
         />
@@ -110,6 +113,9 @@ function App() {
             <Button
               color="primary"
               className="btn-block mircowave--panel-button_100"
+              onClick={() => {
+                setScreen('programs');
+              }}
             >
               Programs
             </Button>
@@ -118,7 +124,7 @@ function App() {
             <Button
               color="primary"
               onClick={() => {
-                setScreen("power");
+                setScreen('power');
               }}
               className="btn-block mircowave--panel-button_100"
             >
@@ -132,7 +138,7 @@ function App() {
 
   const powerSteps = (v) => Math.round(v * 5) / 5;
 
-  const visualPower = (v) => Math.round(powerSteps(circularPower) * 5) + "⚡";
+  const visualPower = (v) => Math.round(powerSteps(circularPower) * 5);
 
   const powerScreen = () => {
     return (
@@ -141,9 +147,9 @@ function App() {
           circularValue={powerSteps(circularPower)}
           onValueChange={(value) => setCircularPower(value)}
           innerValue={visualPower(circularPower)}
-          innerColor={green}
+          innerColor={powerColors[visualPower(circularPower)]}
           innerFunction={() => {
-            setScreen("home");
+            setScreen('home');
           }}
         />
         <div class="microwave--panel-buttons">
@@ -151,13 +157,59 @@ function App() {
             <Button
               color="primary"
               onClick={() => {
-                setScreen("home");
+                setScreen('home');
               }}
               className="btn-block mircowave--panel-button_100"
             >
-              {calculateActualTime(timeValue || "00:00")}
+              {calculateActualTime(timeValue || '00:00')}
             </Button>
           </div>
+        </div>
+      </div>
+    );
+  };
+
+  const programData = [
+    { time: '02:30', power: 1 },
+    { time: '05:00', power: 0.8 },
+    { time: '01:00', power: 0.6 },
+    { time: '00:45', power: 0.8 }
+  ];
+
+  const setActiveProgram = ({ time, power }) => {
+    setCircularPower(power);
+    setTimeValue(time);
+    setCircularValue(calculateActualCircularValue(time));
+  };
+
+  const programButons = () => {
+    let buttons = [ ...Array(4).keys() ].map((index) => {
+      return (
+        <Button
+          className="btn-block mircowave--panel-button_100"
+          onClick={() => {
+            setActiveProgram(programData[index]);
+          }}
+        />
+      );
+    });
+    return buttons;
+  };
+
+  const programScreen = () => {
+    return (
+      <div class="microwave--panel">
+        <CircularComponent
+          circularValue={powerSteps(circularPower)}
+          onValueChange={(value) => setCircularPower(value)}
+          innerValue={visualPower(circularPower)}
+          innerColor={powerColors[visualPower(circularPower)]}
+          innerFunction={() => {
+            setScreen('home');
+          }}
+        />
+        <div class="microwave--panel-buttons__program">
+          <div class="microwave--panel-button__program">{programButons()}</div>
         </div>
       </div>
     );
@@ -169,7 +221,7 @@ function App() {
         <div class="flex--center">
           <div class="microwave--container">
             <div class="microwave--window">
-              <div class="microwave--window-lever"></div>
+              <div class="microwave--window-lever" />
             </div>
             {screen()}
           </div>
@@ -178,10 +230,12 @@ function App() {
     );
   };
 
-  if (screen === "home") {
+  if (screen === 'home') {
     return microwave(homeScreen);
-  } else if (screen === "power") {
+  } else if (screen === 'power') {
     return microwave(powerScreen);
+  } else if (screen === 'programs') {
+    return microwave(programScreen);
   }
 }
 

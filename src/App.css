@@ -37,7 +37,7 @@
   }
 }
 
-html, body, #app, #app>div {   
+html, body, #app, #app>div {
   height: 100%;
 }
 
@@ -46,8 +46,9 @@ html, body, #app, #app>div {
 }
 
 :root {
-  --main-color: #f9a73e;
-  --outline-color: #264b96;
+  --main-color: #edfdfa;
+  --outline-color: #bbdfdc;
+  --button-color: #499c96;
   --stop-cooking-color: #264b96;
   --start-cooking-color: #264b96;
   --window-not-cooking-color: #282828;
@@ -63,7 +64,7 @@ html, body, #app, #app>div {
 
 .microwave--container {
   border-radius: 3%;
-  border-color: #264b96;
+  border-color: var(--outline-color);
   border-width: 5px;
   border-style: solid;
   width: 1450px;
@@ -88,7 +89,7 @@ html, body, #app, #app>div {
   display: flex;
   align-items: center;
   flex-direction: column;
-  background-color: var(--outline-color);
+  background-color:black;
 }
 
 .microwave--window {
@@ -126,6 +127,18 @@ html, body, #app, #app>div {
   align-items: center;
 }
 
+.microwave--panel-buttons__program{
+  margin-top: 20px;
+  padding-bottom: 50px;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .microwave--panel-button {
   height: 130px;
   width: 130px;
@@ -133,6 +146,13 @@ html, body, #app, #app>div {
 
 .mircowave--panel-button_100 {
   height: 100%;
-  background-color: var(--outline-color);
+  background-color: var(--button-color) !important;
+  border-color: var(--button-color) !important;
+  color: black;
   font-size: 1.5rem !important;
+}
+
+.microwave--panel-button__program {
+  height: 120px;
+  width: 120px;
 }
