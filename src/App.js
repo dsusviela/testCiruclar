@@ -156,7 +156,15 @@ function App() {
     );
   };
 
-  const powerSteps = (v) => Math.round(v * 5) / 5;
+  const powerSteps = (v) => {
+    const value = Math.round(v * 5) / 5;
+    if (value === 0) {
+      setCircularPower(1);
+      return 5;
+    } else {
+      return value;
+    }
+  };
 
   const visualPower = (v) => Math.round(powerSteps(circularPower) * 5);
 
