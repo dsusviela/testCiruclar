@@ -1,3 +1,7 @@
+## Foreword
+
+This project is part of the HCI Course for FIng UdelaR. A live deply can be found [here](https://serene-glacier-24442.herokuapp.com/)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
